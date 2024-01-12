@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -112,16 +113,17 @@ public class PedidoServices {
 	}
 
 	public Page<Pedido> findAll(PedidoFiltro filtro, int page, int size) {
-		Example<Pedido> example = Example.of(filtro.converter(null, filtro.getPedidovalue()));
+		Pageable paging = PageRequest.of(page, size, Sort.by("controlnumber").ascending());
 		if(filtro.getIdclient() != null) {
 			log.debug("Validando se o cliente {} existe.", filtro.getIdclient());
 			Optional<Cliente> cliente = clienteServices.findById(filtro.getIdclient());
-			if(!cliente.isPresent()) {
-				example = Example.of(filtro.converter(cliente.get(), filtro.getPedidovalue()));
-			}
-		}	
-		log.debug("Buscando pedidos ordenado pelo numero de controle");
-		Pageable paging = PageRequest.of(page, size, Sort.by("controlnumber").ascending());
-		return repository.findAll(example, paging);
+			if(cliente.isPresent()) {
+				log.debug("Buscando pedidos ordenado pelo numero de controle");
+				return repository.findAll(Example.of(filtro.converter(cliente.get(), filtro.getPedidovalue())), paging);
+			} 
+		} else {
+			return repository.findAll(Example.of(filtro.converter(null, filtro.getPedidovalue())), paging);
+		}
+		return new PageImpl<>(null);
 	}
 }
