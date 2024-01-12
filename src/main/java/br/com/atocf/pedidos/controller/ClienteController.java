@@ -27,7 +27,7 @@ import br.com.atocf.pedidos.dto.cliente.ClienteDtoPut;
 import br.com.atocf.pedidos.entity.Cliente;
 import br.com.atocf.pedidos.exception.RestExceptionCustom;
 import br.com.atocf.pedidos.exception.error.ErrorObject;
-import br.com.atocf.pedidos.services.ClienteServices;
+import br.com.atocf.pedidos.services.ClienteService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -37,7 +37,7 @@ import io.swagger.annotations.ApiOperation;
 public class ClienteController {
 	
 	@Autowired
-	private ClienteServices service;
+	private ClienteService service;
 
 	@GetMapping
 	@Cacheable(value = "listCliente")

@@ -27,15 +27,15 @@ import br.com.atocf.pedidos.exception.error.ErrorObject;
 import br.com.atocf.pedidos.repository.PedidoRepository;
 
 @Service
-public class PedidoServices {
+public class PedidoService {
 	
 	@Autowired
 	private PedidoRepository repository;
 	
 	@Autowired
-	private ClienteServices clienteServices;
+	private ClienteService clienteServices;
 
-	private static final Logger log = LoggerFactory.getLogger(PedidoServices.class);
+	private static final Logger log = LoggerFactory.getLogger(PedidoService.class);
 
 	public Optional<Pedido> findById(Long id) {
 		log.debug("Buscando um pedido por id: {}", id);

@@ -23,7 +23,7 @@ import br.com.atocf.pedidos.dto.pedido.ListPedidoDtoPost;
 import br.com.atocf.pedidos.dto.pedido.PedidoFiltro;
 import br.com.atocf.pedidos.dto.pedido.PedidoReturn;
 import br.com.atocf.pedidos.entity.Pedido;
-import br.com.atocf.pedidos.services.PedidoServices;
+import br.com.atocf.pedidos.services.PedidoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -34,7 +34,7 @@ import io.swagger.annotations.ApiOperation;
 public class PedidoController {
 
 	@Autowired
-	private PedidoServices service;
+	private PedidoService service;
 
 	@GetMapping(produces =  { MediaType.APPLICATION_JSON_VALUE })
 	@Cacheable(value = "listPedido")
