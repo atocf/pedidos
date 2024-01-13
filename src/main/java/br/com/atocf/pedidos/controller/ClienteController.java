@@ -27,7 +27,7 @@ import br.com.atocf.pedidos.dto.cliente.ClienteDtoPut;
 import br.com.atocf.pedidos.entity.Cliente;
 import br.com.atocf.pedidos.exception.RestExceptionCustom;
 import br.com.atocf.pedidos.exception.error.ErrorObject;
-import br.com.atocf.pedidos.services.ClienteServices;
+import br.com.atocf.pedidos.services.ClienteService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -37,14 +37,14 @@ import io.swagger.annotations.ApiOperation;
 public class ClienteController {
 	
 	@Autowired
-	private ClienteServices service;
+	private ClienteService service;
 
 	@GetMapping
 	@Cacheable(value = "listCliente")
 	@ApiOperation("Retorna a lista de Clientes.")
-	public Page<Cliente> findAll(@RequestParam(value = "page", required = false, defaultValue = "0") int page,
+	public ResponseEntity<Page<Cliente>> findAll(@RequestParam(value = "page", required = false, defaultValue = "0") int page,
 			@RequestParam(value = "size", required = false, defaultValue = "50") int size) {
-		return service.findAll(page, size);
+		return ResponseEntity.ok(service.findAll(page, size));
 	}
 
 	@GetMapping(path = { "/{id}" })

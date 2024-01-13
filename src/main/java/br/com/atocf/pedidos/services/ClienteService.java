@@ -16,12 +16,12 @@ import br.com.atocf.pedidos.exception.error.ErrorObject;
 import br.com.atocf.pedidos.repository.ClienteRepository;
 
 @Service
-public class ClienteServices {
+public class ClienteService {
 	
 	@Autowired
 	private ClienteRepository repository;
 
-	private static final Logger log = LoggerFactory.getLogger(ClienteServices.class);
+	private static final Logger log = LoggerFactory.getLogger(ClienteService.class);
 
 	public Page<Cliente> findAll(int page, int size) {
 		log.debug("Buscando a/o cliente ordenando pelo nome");

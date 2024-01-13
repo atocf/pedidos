@@ -23,7 +23,7 @@ import br.com.atocf.pedidos.dto.pedido.ListPedidoDtoPost;
 import br.com.atocf.pedidos.dto.pedido.PedidoFiltro;
 import br.com.atocf.pedidos.dto.pedido.PedidoReturn;
 import br.com.atocf.pedidos.entity.Pedido;
-import br.com.atocf.pedidos.services.PedidoServices;
+import br.com.atocf.pedidos.services.PedidoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -34,15 +34,15 @@ import io.swagger.annotations.ApiOperation;
 public class PedidoController {
 
 	@Autowired
-	private PedidoServices service;
+	private PedidoService service;
 
 	@GetMapping(produces =  { MediaType.APPLICATION_JSON_VALUE })
 	@Cacheable(value = "listPedido")
 	@ApiOperation("Retorna a lista de Clientes.")
-	public Page<Pedido> findAll(@RequestParam(value = "page", required = false, defaultValue = "0") int page,
+	public ResponseEntity<Page<Pedido>> findAll(@RequestParam(value = "page", required = false, defaultValue = "0") int page,
 			@RequestParam(value = "size", required = false, defaultValue = "50") int size,
 			@RequestPayload PedidoFiltro filtro) {
-		return service.findAll(filtro, page, size);
+		return ResponseEntity.ok(service.findAll(filtro, page, size));
 	}
 
 	@PostMapping(consumes = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE }, produces =  { MediaType.APPLICATION_JSON_VALUE })
