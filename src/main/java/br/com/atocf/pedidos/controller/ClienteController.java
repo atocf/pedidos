@@ -42,9 +42,9 @@ public class ClienteController {
 	@GetMapping
 	@Cacheable(value = "listCliente")
 	@ApiOperation("Retorna a lista de Clientes.")
-	public Page<Cliente> findAll(@RequestParam(value = "page", required = false, defaultValue = "0") int page,
+	public ResponseEntity<Page<Cliente>> findAll(@RequestParam(value = "page", required = false, defaultValue = "0") int page,
 			@RequestParam(value = "size", required = false, defaultValue = "50") int size) {
-		return service.findAll(page, size);
+		return ResponseEntity.ok(service.findAll(page, size));
 	}
 
 	@GetMapping(path = { "/{id}" })

@@ -39,10 +39,10 @@ public class PedidoController {
 	@GetMapping(produces =  { MediaType.APPLICATION_JSON_VALUE })
 	@Cacheable(value = "listPedido")
 	@ApiOperation("Retorna a lista de Clientes.")
-	public Page<Pedido> findAll(@RequestParam(value = "page", required = false, defaultValue = "0") int page,
+	public ResponseEntity<Page<Pedido>> findAll(@RequestParam(value = "page", required = false, defaultValue = "0") int page,
 			@RequestParam(value = "size", required = false, defaultValue = "50") int size,
 			@RequestPayload PedidoFiltro filtro) {
-		return service.findAll(filtro, page, size);
+		return ResponseEntity.ok(service.findAll(filtro, page, size));
 	}
 
 	@PostMapping(consumes = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE }, produces =  { MediaType.APPLICATION_JSON_VALUE })
